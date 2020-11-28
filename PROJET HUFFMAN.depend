@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1606494507 source:c:\users\solan\onedrive\documents\efrei\projet huffman\main.c
+	<stdio.h>
+	<stdlib.h>
+	"FONCTION.h"
+
+1606496029 source:c:\users\solan\onedrive\documents\efrei\projet huffman\fonction.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"FONCTION.h"
+
+1606494507 c:\users\solan\onedrive\documents\efrei\projet huffman\fonction.h
+
