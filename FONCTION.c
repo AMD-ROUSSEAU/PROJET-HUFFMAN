@@ -3,6 +3,8 @@
 #include <math.h>
 #include "FONCTION.h"
 
+//hello
+
 int nb_caractere(FILE* fichier)
 {
     int x=0;
@@ -369,7 +371,7 @@ void Storage_Dictionary(Node2* T_Huffman)
             if( caractere == caractere2)
             {
                 // The binary code is just on one line
-                while(// tant qu'on est pas arrivé au bout de la ligne ")
+                while(// tant qu'on est pas arrivÃ© au bout de la ligne ")
                 {
                     // writing binary code in sortie.txt
                     fputs(fputc(dico),sortie);
