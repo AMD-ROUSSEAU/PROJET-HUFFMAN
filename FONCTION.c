@@ -303,14 +303,19 @@ void Storage_Dictionary(Node2* T_Huffman, T_Huffman->code[0]) // ajout d'un nouv
     /** TEST IF OPENING SUCCESSFUL **/
     if( Dico != NULL)
     {
-        if ( T_Huffman->left == NULL && T_Huffman->right == NULL) // condition d'arret
+        if(T_Huffman == NULL) // Parcours de l'arbre terminé
+        {
+            return;
+        }
+        else if ( T_Huffman->left == NULL && T_Huffman->right == NULL) 
         {   
             fprintf(Dico,"%c : ",T_Huffman->caractere ); // Ecriture de la lettre dans le fichier dico
             int i=0;
             for(i=1; i< 10; i++)
             {
                 fprintf(Dico,"%d",chemin[i]);// Ecriture du code binaire dans le fichier Dico
-            } 
+            }
+            fputc("\n",Dico);
         }
         else
         {   
