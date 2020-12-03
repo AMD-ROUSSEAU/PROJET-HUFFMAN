@@ -293,7 +293,7 @@ int nb_element_tree_right(Node2* Tree)
     }
 }
 
-void Storage_Dictionary(Node2* T_Huffman, T_Huffman->code[0]) // ajout d'un nouveau paramètre "code" dans la structure 
+void Storage_Dictionary(Node2* T_Huffman, T_Huffman->code[], int x) // ajout d'un nouveau paramètre "code" dans la structure 
 {
   printf(" DEBUT DICO  \n");
     /** OPENING DICO FILE **/
@@ -303,11 +303,8 @@ void Storage_Dictionary(Node2* T_Huffman, T_Huffman->code[0]) // ajout d'un nouv
     /** TEST IF OPENING SUCCESSFUL **/
     if( Dico != NULL)
     {
-        if(T_Huffman == NULL) // Parcours de l'arbre terminé
-        {
-            return;
-        }
-        else if ( T_Huffman->left == NULL && T_Huffman->right == NULL) 
+
+        if ( T_Huffman->left == NULL && T_Huffman->right == NULL) // feuille trouvé 
         {   
             fprintf(Dico,"%c : ",T_Huffman->caractere ); // Ecriture de la lettre dans le fichier dico
             int i=0;
@@ -317,11 +314,15 @@ void Storage_Dictionary(Node2* T_Huffman, T_Huffman->code[0]) // ajout d'un nouv
             }
             fputc("\n",Dico);
         }
-        else
+        else if ( T_Huffman->left != NULL )
         {   
-           Storage_Dictionnary(T_Huffman->left, 1);// Si je vais a gauche le code prend un 0
-            Storage_Dictionnary(T_Huffman->right,0); // Si je vais a droite le code prend un 1
-            T_Huffman->code[++]; // Je passe a la case suivante du code 
+           T_Huffman->code[x] = 0;
+           Storage_Dictionnary(T_Huffman->left, x++);// Si je vais a gauche le code prend un 0
+        }
+        else if( T_Huffman->right != NULL)
+        {
+            T_Huffman->code[x] = 1 ; 
+            Storage_Dictionnary(T_Huffman->right,x++); // Si je vais a droite le code prend un 1
         }
     }
     else
