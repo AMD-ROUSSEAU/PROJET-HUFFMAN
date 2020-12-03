@@ -1,54 +1,33 @@
 #ifndef FONCTION_H_INCLUDED
 #define FONCTION_H_INCLUDED
 
-typedef struct Element
-{
+//Définition de la structure Node
+typedef struct Node{
     char caractere;
-    int repetition;
-    struct Element* next;
-}Element;
-
-typedef struct Node
-{
-    Element* data;
-    struct Node* left;
-    struct Node* right;
+    int occurrence;
+    struct Node* next_elem;//pointe sur l'élément suivant de la liste
+    struct Node* left;//pointe sur le sous-arbre gauche
+    struct Node* right;//pointe sur le sous-arbre droit
 }Node;
 
-typedef struct Node2{
-
-    char caractere;
-
-    int occurrence;
-
-    struct Node2* left;
-
-    struct Node2* right;
-
-}Node2;
-
-typedef struct List_Node
-{
-
-}List_Node;
 /** APPENDIX FUNCTION **/
 
 // CRREATION DE MAILLON DANS LE BUT DE CREER UNE LISTE
-Element* create_element(char Letter);
+Node* create_elem(char caractere);
 // AFFICHAGE DE LA LISTE
-void print_list(Element * myList);
-void print_tree(Node2* tree);
+void print_list(Node * myList);
+//void print_tree(Node2* tree);//A modifier
 // COMPTE LE NOMBRE D'ELEMENT APPARTENANT A LA LISTE
-int nb_element_list(Element* mylist);
+int nb_element_list(Node* mylist);
 
 
 /**********************************************************************************************************************/
 // PART 1 : FROM LETTER TO BIT
 
 /** FUNCTION A **/
-int presence_letter(Element** mylist,char Letter);
+//int presence_letter(Element** mylist,char Letter);
 int ascii_to_binary(char car);
-void translate_binary();
+void translate_binary(char* file_in, char* file_out);
 
 /** FUNCTION B **/
 int nb_caractere(FILE* fichier);
@@ -58,24 +37,25 @@ int nb_caractere(FILE* fichier);
 ///     2.1 OCCURENCE      ///
 
 /** FUNCTION C **/
-Element* Occurence();
-void add_new_el_end(Element** mylist, Element* new_element);
-
+//Element* Occurence();
+//void add_new_el_end(Element** mylist, Element* new_element);
+Node* increment_elem(Node* list_huffman,char caractere);
+Node* create_list_huffman(char* file_in);
 
 ///     2.2 TREE     ///
 
 
 /** FUNCTION D **/
-Element* smaller_element(Element* mylist);
+Node* smaller_element(Node* mylist);
 void delete_element( Element** mylist, Element* target);
-Node2* create_node(char caractere,int occurrence);
-Node2* tree_huffman(Element* copied_list);
+//Node2* create_node(char caractere,int occurrence);//Plus nécessaire
+//Node2* tree_huffman(Element* copied_list);//A modifier
 ///     2.3 DICTIONNARY    ///
 
 
 /** FUNCTION E **/
-void Storage_Dictionary(Node2* T_Huffman);
-int nb_element_tree_right(Node2* Tree);
+void Storage_Dictionary(Node2* T_Huffman);//A modifier
+int nb_element_tree_right(Node2* Tree);//A modifier
 
 
 ///     2.4 ENCODING     ///
