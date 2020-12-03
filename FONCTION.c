@@ -313,7 +313,7 @@ void Storage_Dictionary(Node2* T_Huffman, T_Huffman->code[0]) // ajout d'un nouv
             int i=0;
             for(i=1; i< 10; i++)
             {
-                fprintf(Dico,"%d",chemin[i]);// Ecriture du code binaire dans le fichier Dico
+                fprintf(Dico,"%d",T_Huffman->code[i]);// Ecriture du code binaire dans le fichier Dico
             }
             fputc("\n",Dico);
         }
