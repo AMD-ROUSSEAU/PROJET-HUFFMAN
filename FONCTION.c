@@ -354,43 +354,39 @@ void Storage_Dictionary(Node2* T_Huffman)
 
 }
 
-/*void Encodage(FILE* fichier)
+void Encodage(FILE* Alice)
 {
-    FILE* sortie = fopen("Sortie.txt","w");
+    FILE* Output2 = fopen("Output2.txt","w"); // Opening of the file Output 
+    FILE* Dico = fopen("Dico.txt", "r"); // Opening of the file Dico which is the dictionnary containing all the binary numbers correspondind to the caracters
 
-    caractere = fgetc(fichier);
-    caractere2 = fgetc(sortie);
+    caracter = fgetc(Alice);
+    caracterD = fgetc(Output2);
 
-    // The letter is not at the end
-    while( caractere != EOF)
+    // Until that the the caracter is not at the end of the file do these
+    while( caracter != EOF)
     {
-
-        while( caracter2 != EOF)
+        while (caracterD != EOF) 
         {
-            //The letter is a letter presents in dico.txt
-            if( caractere == caractere2)
+            
+                while (caracterD != '\n') // until we go to the next line to see the next caracter
             {
-                // The binary code is just on one line
-                while(// tant qu'on est pas arrivé au bout de la ligne ")
+                if(caracter == caracter D) // if the caracter in the file Alice corresponds to the caracter present in the dictionnary
                 {
-                    // writing binary code in sortie.txt
-                    fputs(fputc(dico),sortie);
+                    fgetc(caracterD); // read caracterD
+                    printf("%d",caracterD);
+                    
                 }
+                
+                else{
+                    fgetc(); // read space
+                }
+            
             }
-            else
-            {
-                fputs(".",sortie);
-            }
-            // -> sauter une ligne pour lire caractere en dessous
-            caractere2 = fgetc(dico);
-        }
-        // -> se replacer au debut
+       }
+       
 
-        // Next letter of Alice.txt
-        caractere = fgetc(fichier);
     }
 }
-*/
 
 void compression_file(FILE* file)
 {
