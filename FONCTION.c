@@ -3,7 +3,7 @@
 #include <math.h>
 #include "FONCTION.h"
 
-//hello
+
 
 int nb_caractere(FILE* fichier)
 {
@@ -371,18 +371,18 @@ void Encodage(FILE* Alice)
             {
                 while (caracterD != '\n') // until we go to the next line to see the next caracter
                 {
-                    fgetc(Dico); 
-                    fgetc(Dico);
-                    fgetc(Dico);
-                    fgetc(Dico);
-                    printf("%d",caracterD);
+                    for(i=0; i<4; i++)
+                    {
+                        fgetc(Dico); 
+                        printf("%d",caracterD);
+                    }
                     
                 }
             }
                 
             else
             {
-                fgetc([\n],Dico);
+                fgetc("\n",Dico);
             }
  
        }
