@@ -299,51 +299,26 @@ void Storage_Dictionary(Node2* T_Huffman)
     /** OPENING DICO FILE **/
     FILE* Dico = NULL;
     Dico = fopen("Dico.txt","r+");
-    fputc('A',Dico);
+    int chemin[9]; // le nombre est déterminé par le développeur car on est sur qu'on aura pas un code binaire plus grand que 10 ( 9 + le "0")
     /** TEST IF OPENING SUCCESSFUL **/
-    printf(" OUVERTURE DICO \n");
     if( Dico != NULL)
     {
-        /** -1 BECAUSE THE TABLE START TO 0 **/
-        int chemin[nb_element_tree_right(T_Huffman)-1];
-        int emplacement=0;
-        int i;
-
-        /** FIRTS CASE **/
-        //printf("\n REGARD ICI : %c \n", T_Huffman->left->caractere);
-        printf(" LETTRE : %c : 0 ",T_Huffman->right->left->caractere);
-        fprintf(Dico,"%c : 0",T_Huffman->right->left->caractere);
-        fputs("\n", Dico);
-        //printf("DANS SI PREMIER CASE \n");
-        /** TREE PATH **/
-        while(T_Huffman->right != NULL)
+        while( T_Huffman->left != NULL || T_Huffman->right != NULL ) //
         {
-            /** RIGHT PATH TAKEN THEN +1 CASE OF VALUE 1 **/
-            //printf("DANS BOUCLE WHILE \n");
-            printf("\n");
-            chemin[emplacement]= 1;
-            emplacement++;
-            T_Huffman = T_Huffman->right;
-            /** PRESENCE OF A LETTER **/
-            printf("\nLETTRE: %c : ",T_Huffman->right->left->caractere);
-                fprintf(Dico,"%c : ",T_Huffman->right->left->caractere);
-                //printf("DANS BOUCLE WHILE  DANS IF\n");
-
-            /** BROWSE THE TABLE TO DISPLAY PATH **/
-
-            for(i = 0; i< emplacement; i++)
-            {
-                printf("%d",chemin[i]);
-                fprintf(Dico,"%d",chemin[i]);
-                //printf("DANS BOUCLE WHILE  DANS FOR\n");
-            }
-            /** 0 : LEFT PATH TO ACCESS THE LETTER **/
-           fputc('0', Dico);
-           printf("0");
-           fputc('A',Dico);
-           fputs("\n", Dico);
-           printf("\n");
+            // Si je prend le chemin gauche alors 
+                chemin[i] = 1;
+            //si je prend le chemin droite alors 
+                chemin[i] = 0;
+            
+            i++;
+            // soit partir a droite soit partir a gauche 
+            // Comment s'assurer de faire tous les chemins possibles sans refaire deux fois le même parcours 
         }
+         // si on arrive a une feuille c'est qu'une nous sommes sur un noeud contenant une lettre 
+        fprintf(Dico,"%c : ",T_Huffman->caractere ); // Ecriture de la lettre dans le fichier dico
+        for(i=1; i< 10; i++)
+        {
+            fprintf(Dico,"%d",chemin[i]);// Ecriture du code binaire dans le fichier Dico
     }
     else
     {
