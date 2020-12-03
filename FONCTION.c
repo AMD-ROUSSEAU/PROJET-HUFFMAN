@@ -39,30 +39,92 @@ int ascii_to_binary(char car)
     return ((c % 2) + 10 * ascii_to_binary(c / 2));
 }
 
-void translate_binary ()
+//Fonction permettant de traduire un fichier texte en code binaire (8 bits par caractere)
+/*Parametres : un fichier input.txt contenant le texte à traduire et un fichier output.txt
+ dans lequel la traduction de input.txt en code binaire sera écrit*/
+void translate_binary (char* file_in, char* file_out)
 {
-    char c;
-    FILE* Alice=fopen("Alice.txt","r");
-    FILE* Output=fopen("Output.txt", "w");
-    if(Alice==NULL)
+    char car;
+    FILE* input=fopen(file_in,"r");//on ouvre input.txt en mode lecture
+    FILE* output=fopen(file_out,"w");//on ouvre input.txt en mode écriture
+    if(input==NULL)//problème d'ouverture du fichier
     {
         fprintf(stderr, "-------------------ERREUR D'OUVERTURE-------------------");
     }
 
-    if(Output==NULL)
+    if(output==NULL)//problème d'ouverture du fichier
     {
         fprintf(stderr, "-------------------ERREUR D'OUVERTURE-------------------");
     }
 
-    while((c=fgetc(Alice))!=EOF)
+    while((car=fgetc(input)) != EOF){//Tant que nous ne sommes pas arrivés à la fin du fichier texte
     {
-        fprintf(Output, "%08d", ascii_to_binary(c));
+        fprintf(output, "%08d", ascii_to_binary(car));
     }
-    fclose(Alice);
-    fclose(Output);
+    fclose(input);//on ferme le fichier input.txt
+    fclose(output);//on ferme le fichier output.txt
+}
+    
+//Fonction qui crée un noeud
+Node* create_elem(char caractere)
+{
+    printf("Entrée dans create_elem\n");
+    Node* new_node=(Node*)malloc(sizeof(Node));
+    new_node->caractere = caractere;
+    new_node->occurrence=1;
+    new_node->next_elem=NULL;
+    new_node->left=NULL;
+    new_node->right=NULL;
+    return new_node;
+}
+    
+//Fonction qui permet d'incrémenter l'occurrence d'un noeud existant dans la liste
+//Retourne l'addresse du noeud s'il est present
+//Retourne NULL si le noeud n'est pas present
+Node* increment_elem(Node* list_huffman,char caractere){
+    printf("Entrée dans increment_elem\n");
+    while(list_huffman != NULL){
+        if ((list_huffman->caractere)==caractere){
+            list_huffman->occurrence++;
+            return list_huffman;
+        }
+        list_huffman=list_huffman->next_elem;
+    }
+    return NULL;
 }
 
-int presence_letter(Element** mylist, char  Letter)
+//Fonction qui crée une liste contenant les caracteres presents dans un fichier texte et leurs occurrences
+//Si le caractere courant n'est pas dans la liste : creation d'un noeud contenant le caractere et ajout de ce noeud dans la liste
+//Si le caractere courant est dans la liste : incrementation de son occurrence
+Node* create_list_huffman(char* file_in){
+    Node* mylist=NULL;
+    Node* temp=NULL;//liste temporaire
+    char car;
+    FILE* file=fopen(file_in,"r");
+
+    printf("Entrée dans create_list_huffman\n");
+    if (file==NULL){ //problème d'ouverture du fichier
+        fprintf(stderr, "-------------------ERREUR D'OUVERTURE-------------------");
+    }
+
+    while((car=fgetc(file)) != EOF){//Tant que nous ne sommes pas arrivés à la fin du fichier texte
+        if (mylist==NULL){//Si la liste est vide
+            mylist=create_elem(fgetc(file));
+            temp=mylist;
+        }
+        else{
+            if (increment_elem(mylist,car) == NULL){
+                temp->next_elem=create_elem(car);
+                temp=temp->next_elem;
+            }
+        }
+    }
+    fclose(file);
+    return mylist;
+}
+    
+
+/*int presence_letter(Element** mylist, char  Letter)
 {
     Element* temp = (*mylist);
 
@@ -96,8 +158,8 @@ void add_new_el_end(Element** mylist, Element* new_element)
         temp->next = new_element;
     }
 }
-
-void print_list(Element* mylist)
+*/
+void print_list(Node* mylist)
 {
     if(mylist==NULL)
     {
@@ -106,12 +168,12 @@ void print_list(Element* mylist)
     else
     {
 
-        printf("[%c][%d] -> ",mylist->caractere, mylist->repetition);
-        print_list(mylist->next);
+        printf("[%c][%d] -> \n",mylist->caractere, mylist->occurrence);
+        print_list(mylist->next_elem);
     }
 }
 
-int nb_element_list(Element* mylist)
+int nb_element_list(Node* mylist)
 {
     if(mylist == NULL)
     {
@@ -119,11 +181,11 @@ int nb_element_list(Element* mylist)
     }
     else
     {
-        return 1 + nb_element_list(mylist->next);
+        return 1 + nb_element_list(mylist->next_elem);
     }
 }
 
-Element* create_element(char Letter)
+/*Element* create_element(char Letter)
 {
     Element* new_element=NULL;
     new_element = malloc(sizeof(Element));
@@ -159,41 +221,42 @@ Element* Occurence()
     while (Letter != EOF)
     {
         /** LA LETTRE EST PAS PRESENTE J'AJOUTE UN MAILLON POUR ELLE */
-        if(presence_letter(&mylist, Letter) == 0)
+        /*if(presence_letter(&mylist, Letter) == 0)
         {
             new_element = create_element(Letter);
             add_new_el_end(&mylist->next,new_element);
             Letter=fgetc(file);
         }
         /** LA LETTRE EST PRESENTE JE PASSE AU SUIVANT**/
-        else
+       /* else
         {
             Letter=fgetc(file);
         }
     }
     fclose(file);
     return mylist;
-}
+}*/
 
-Element* smaller_element(Element* mylist)
+Node* smaller_element(Node* mylist)
 {
-    Element* smaller = mylist;
-    while(mylist->next != NULL)
+    Node* smaller = mylist;
+    while(mylist->next_elem != NULL)
     {
-        if(mylist->next->repetition <= smaller->repetition)
+        if(mylist->next_elem->occurrence <= smaller->occurrence)
         {
-            smaller=mylist->next;
-            mylist = mylist->next;
+            smaller=mylist->next_elem;
+            mylist = mylist->next_elem;
         }
         else
         {
-            mylist = mylist->next;
+            mylist = mylist->next_elem;
         }
     }
 
     return smaller;
 }
 
+//A modifier avec la nouvelle structure Node*
 void delete_element( Element** malist, Element* x)
 {
    Element* temp=NULL;
@@ -226,7 +289,8 @@ void delete_element( Element** malist, Element* x)
     }
 }
 
-Node2* tree_huffman(Element* copied_list)
+//Fonction a modifier
+/*Node2* tree_huffman(Element* copied_list)
 {
     Node2* Tree=NULL;
     Node2* right_node;
@@ -292,7 +356,9 @@ int nb_element_tree_right(Node2* Tree)
         return 1 + nb_element_tree_right(Tree->right);
     }
 }
-
+*/
+    
+//A modifier avec la nouvelle structure et le nouvel arbre de Huffman
 void Storage_Dictionary(Node2* T_Huffman)
 {
   printf(" DEBUT DICO  \n");
