@@ -293,32 +293,31 @@ int nb_element_tree_right(Node2* Tree)
     }
 }
 
-void Storage_Dictionary(Node2* T_Huffman)
+void Storage_Dictionary(Node2* T_Huffman, T_Huffman->code[0]) // ajout d'un nouveau paramètre "code" dans la structure 
 {
   printf(" DEBUT DICO  \n");
     /** OPENING DICO FILE **/
     FILE* Dico = NULL;
     Dico = fopen("Dico.txt","r+");
-    int chemin[9]; // le nombre est déterminé par le développeur car on est sur qu'on aura pas un code binaire plus grand que 10 ( 9 + le "0")
+   
     /** TEST IF OPENING SUCCESSFUL **/
     if( Dico != NULL)
     {
-        while( T_Huffman->left != NULL || T_Huffman->right != NULL ) //
-        {
-            // Si je prend le chemin gauche alors 
-                chemin[i] = 1;
-            //si je prend le chemin droite alors 
-                chemin[i] = 0;
-            
-            i++;
-            // soit partir a droite soit partir a gauche 
-            // Comment s'assurer de faire tous les chemins possibles sans refaire deux fois le même parcours 
+        if ( T_Huffman->left == NULL && T_Huffman->right == NULL) // condition d'arret
+        {   
+            fprintf(Dico,"%c : ",T_Huffman->caractere ); // Ecriture de la lettre dans le fichier dico
+            int i=0;
+            for(i=1; i< 10; i++)
+            {
+                fprintf(Dico,"%d",chemin[i]);// Ecriture du code binaire dans le fichier Dico
+            } 
         }
-         // si on arrive a une feuille c'est qu'une nous sommes sur un noeud contenant une lettre 
-        fprintf(Dico,"%c : ",T_Huffman->caractere ); // Ecriture de la lettre dans le fichier dico
-        for(i=1; i< 10; i++)
-        {
-            fprintf(Dico,"%d",chemin[i]);// Ecriture du code binaire dans le fichier Dico
+        else
+        {   
+           Storage_Dictionnary(T_Huffman->left, 1);// Si je vais a gauche le code prend un 0
+            Storage_Dictionnary(T_Huffman->right,0); // Si je vais a droite le code prend un 1
+            T_Huffman->code[++]; // Je passe a la case suivante du code 
+        }
     }
     else
     {
