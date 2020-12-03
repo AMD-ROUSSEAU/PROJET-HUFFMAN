@@ -360,31 +360,33 @@ void Encodage(FILE* Alice)
     FILE* Dico = fopen("Dico.txt", "r"); // Opening of the file Dico which is the dictionnary containing all the binary numbers correspondind to the caracters
 
     caracter = fgetc(Alice);
-    caracterD = fgetc(Output2);
+    caracterD = fgetc(Dico);
 
     // Until that the the caracter is not at the end of the file do these
     while( caracter != EOF)
     {
         while (caracterD != EOF) 
         {
-            
-                while (caracterD != '\n') // until we go to the next line to see the next caracter
+            if(caracter == caracter D) // if the caracter in the file Alice corresponds to the caracter present in the dictionnary
             {
-                if(caracter == caracter D) // if the caracter in the file Alice corresponds to the caracter present in the dictionnary
+                while (caracterD != '\n') // until we go to the next line to see the next caracter
                 {
-                    fgetc(caracterD); // read caracterD
+                    fgetc(Dico); 
+                    fgetc(Dico);
+                    fgetc(Dico);
+                    fgetc(Dico);
                     printf("%d",caracterD);
                     
                 }
-                
-                else{
-                    fgetc(); // read space
-                }
-            
             }
+                
+            else
+            {
+                fgetc([\n],Dico);
+            }
+ 
        }
-       
-
+   
     }
 }
 
