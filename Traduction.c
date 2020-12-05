@@ -59,3 +59,44 @@ void translate_binary()
     fclose(Alice);
     fclose(Output);
 }
+
+void Storage_Dictionary(Node2* T_Huffman, T_Huffman->code[], int x) // ajout d'un nouveau paramètre "code" dans la structure 
+{
+  printf(" DEBUT DICO  \n");
+    /** OPENING DICO FILE **/
+    FILE* Dico = NULL;
+    Dico = fopen("Dico.txt","r+");
+   
+    /** TEST IF OPENING SUCCESSFUL **/
+    if( Dico != NULL)
+    {
+
+        if ( T_Huffman->left == NULL && T_Huffman->right == NULL) // feuille trouvé 
+        {   
+            fprintf(Dico,"%c : ",T_Huffman->caractere ); // Ecriture de la lettre dans le fichier dico
+            int i=0;
+            for(i=1; i< 10; i++)
+            {
+                fprintf(Dico,"%d",T_Huffman->code[i]);// Ecriture du code binaire dans le fichier Dico
+            }
+            fputc("\n",Dico);
+        }
+        else if ( T_Huffman->left != NULL )
+        {   
+           T_Huffman->code[x] = 0;
+           Storage_Dictionnary(T_Huffman->left, x++);// Si je vais a gauche le code prend un 0
+        }
+        else if( T_Huffman->right != NULL)
+        {
+            T_Huffman->code[x] = 1 ; 
+            Storage_Dictionnary(T_Huffman->right,x++); // Si je vais a droite le code prend un 1
+        }
+    }
+    else
+    {
+        /** OPENING FAILURE **/
+        printf(" DICO FILE CANNOT BE OPENED ");
+    }
+    fclose(Dico);
+
+}
