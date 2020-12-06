@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include "Traduction.h"
 
 int nb_caractere(FILE* fichier)
 {
