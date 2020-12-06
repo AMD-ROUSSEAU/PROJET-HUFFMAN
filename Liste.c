@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include "Liste.h"
+
 int presence_letter(Element** mylist, char  Letter)
 {
     Element* temp = (*mylist);
