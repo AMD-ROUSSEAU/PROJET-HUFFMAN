@@ -1,18 +1,20 @@
 #ifndef FONCTION_H_INCLUDED
 #define FONCTION_H_INCLUDED
 
-typedef struct Element
-{
+//Définition de la structure Node
+typedef struct Node{
     char caractere;
-    int repetition;
-    struct Element* next;
-}Element;
+    int occurrence;
+    int code[];/*++++++++MODIF++++++++++*/
+    struct Node* next_elem;//pointe sur l'élément suivant de la liste
+    struct Node* left;//pointe sur le sous-arbre gauche
+    struct Node* right;//pointe sur le sous-arbre droit
+}Node;
 
-int nb_element_list(Element* mylist);
-int presence_letter(Element** mylist, char Letter);
-Element* create_element(char Letter);
-void print_list(Element* myList);
-Element* Occurence();
-void add_new_el_end(Element** mylist, Element* new_element);
+Node* create_elem(char car,int occ);
+int nb_element_list(Node* mylist);
+Node* increment_elem(Node* list_huffman,char caractere);
+Node* create_list_char(char* file_in);
+void print_list(Node* myList);
 
 #endif // FONCTION_H_INCLUDED
