@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
+#include "Arbre.h"
+#include "Traduction.h"
 
 int nb_caractere(FILE* fichier)
 {
