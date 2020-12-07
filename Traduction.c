@@ -60,3 +60,39 @@ void translate_binary(char* file_in, char* file_out){
     fclose(input);//on ferme le fichier input.txt
     fclose(output);//on ferme le fichier output.txt
 }
+
+void Encodage(FILE* Alice)
+{
+    FILE* Output2 = fopen("Output2.txt","w"); // Opening of the file Output 
+    FILE* Dico = fopen("Dico.txt", "r"); // Opening of the file Dico which is the dictionnary containing all the binary numbers correspondind to the caracters
+
+    caracter = fgetc(Alice);
+    caracterD = fgetc(Dico);
+
+    // Until that the the caracter is not at the end of the file do these
+    while( caracter != EOF)
+    {
+        while (caracterD != EOF) 
+        {
+            if(caracter == caracter D) // if the caracter in the file Alice corresponds to the caracter present in the dictionnary
+            {
+                while (caracterD != '\n') // until we go to the next line to see the next caracter
+                {
+                    for(i=0; i<4; i++)
+                    {
+                        fgetc(Dico); 
+                        printf("%d",caracterD);
+                    }
+                    
+                }
+            }
+                
+            else
+            {
+                fgetc("\n",Dico);
+            }
+ 
+       }
+   
+    }
+}
