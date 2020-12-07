@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "Liste.h"
 
 //Fonction qui crée un noeud (élément)
 Node* create_elem(char car,int occ)
