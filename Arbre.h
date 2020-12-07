@@ -1,30 +1,21 @@
 #ifndef FONCTION_H_INCLUDED
 #define FONCTION_H_INCLUDED
 
-typedef struct Node
-{
-    Element* data;
-    struct Node* left;
-    struct Node* right;
-}Node; 
-
-typedef struct Node2 {
-
+//Définition de la structure Node
+typedef struct Node{
     char caractere;
-
     int occurrence;
+    int code[];
+    struct Node* next_elem;//pointe sur l'élément suivant de la liste
+    struct Node* left;//pointe sur le sous-arbre gauche
+    struct Node* right;//pointe sur le sous-arbre droit
+}Node;
 
-    struct Node2* left;
-
-    struct Node2* right;
-
-}Node2;
-
-void print_tree(Node2* tree);
-Element* smaller_element(Element* mylist);
-void delete_element(Element** mylist, Element* target);
-Node2* create_node(char caractere, int occurrence);
-Node2* tree_huffman(Element* copied_list);
-int nb_element_tree_right(Node2* Tree);
+void print_tree(Node* tree);
+Node* smaller_element(Node* mylist);
+Node* delete_smaller(Node* list, Node* smaller);;
+Node* create_elem(char car,int occ);
+Node* create_tree_huffman(Node* list_node);
+int nb_element_tree_right(Node* Tree);
 
 #endif // FONCTION_H_INCLUDED
