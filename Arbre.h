@@ -14,8 +14,7 @@ typedef struct Node{
 void print_tree(Node* tree);
 Node* smaller_element(Node* mylist);
 Node* delete_smaller(Node* list, Node* smaller);;
-Node* create_elem(char car,int occ);
 Node* create_tree_huffman(Node* list_node);
-int nb_element_tree_right(Node* Tree);
+
 
 #endif // FONCTION_H_INCLUDED
