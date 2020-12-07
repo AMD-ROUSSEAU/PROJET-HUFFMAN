@@ -3,20 +3,21 @@
 #include <math.h>
 
 
-Node2* create_node(char caractere, int occurrence)
+//Fonction qui crée un noeud
+Node* create_elem(char car,int occ)
 {
-
-    Node2* new_node = (Node2*)malloc(sizeof(Node2));
-    new_node->caractere = caractere;
-    new_node->occurrence = occurrence;
-    new_node->left = NULL;
-    new_node->right = NULL;
+    Node* new_node=(Node*)malloc(sizeof(Node));
+    new_node->caractere = (char)car;
+    new_node->occurrence=occ;
+    new_node->next_elem=NULL;
+    new_node->left=NULL;
+    new_node->right=NULL;
     return new_node;
 }
 
-Element* smaller_element(Element* mylist)
+Node* smaller_element(Node* mylist)
 {
-    Element* smaller = mylist;
+    Node* smaller = mylist;
     while (mylist->next != NULL)
     {
         if (mylist->next->repetition <= smaller->repetition)
@@ -33,84 +34,63 @@ Element* smaller_element(Element* mylist)
     return smaller;
 }
 
-void delete_element(Element** malist, Element* x)
-{
-    Element* temp = NULL;
-    Element* buffer = (*malist);
-    if (malist == NULL)
-    {
-        return;
-    }
-    else
-    {
-        while (buffer->next != NULL)
-        {
-            if (buffer->next->caractere == x->caractere)
+//Fonction qui supprime l'élément smaller de la liste et qui retourne la nouvelle liste
+Node* delete_smaller(Node* list, Node* smaller){
+    Node* mylist=list;
+    Node* first_elem=mylist;
+    Node* previous = NULL; //Noeud précédent
+
+    //printf("Entree dans delete_smaller\n");
+    while(mylist != NULL){
+        if (mylist==smaller){
+            if(previous==NULL)//Cas où smaller est le premier élément de la liste
             {
-                temp = buffer->next->next;
-                free(buffer->next);
-                buffer->next = temp;
+                return mylist->next_elem;
             }
-            else
+            else // smaller n'est pas le premier élément
             {
-                buffer = buffer->next;
+                if((mylist->next_elem)==NULL){//smaller est le dernier élément de la liste
+                    previous->next_elem = NULL;
+                    return first_elem;
+                }
+                else //smaller n'est ni le premier ni le dernier élément de la liste
+                {
+                    (previous->next_elem) = (smaller->next_elem);
+                    return first_elem;
+                }
             }
         }
-    }
-    if ((*malist)->caractere == x->caractere)
-    {
-        buffer = *malist;
-        *malist = (*malist)->next;
-        free(buffer);
+        previous=mylist;
+        mylist=mylist->next_elem;
     }
 }
 
-Node2* tree_huffman(Element* copied_list)
-{
-    Node2* Tree = NULL;
-    Node2* right_node;
-    Node2* left_node;
-    Node2* current_node;
-    Element* small_element_left;
-    Element* small_element_right;
-    while (copied_list != NULL)
-    {
-        if (Tree == NULL)
-        {
-            small_element_right = smaller_element(copied_list);
-            right_node = create_node(small_element_right->caractere, small_element_right->repetition);
-            print_list(copied_list);
-            delete_element(&copied_list, small_element_right);
-            printf("\n");
-            print_list(copied_list);
-            printf("\n");
-            small_element_left = smaller_element(copied_list);
-            left_node = create_node(small_element_left->caractere, small_element_left->repetition);
-            delete_element(&copied_list, small_element_right);
+Node* create_tree_huffman(Node* list_node){
+    Node* mylist=list_node;
+    Node* small_elem_1;
+    Node* small_elem_2;
+    Node* new_node;
 
-            Tree = create_node(0, small_element_right->repetition + small_element_left->repetition);
+    while(mylist->next_elem != NULL){
+        small_elem_1 = smaller_element(mylist);//on trouve le premier plus petit élément et on le stocke dans small_elem_1
+        mylist=delete_smaller(mylist,small_elem_1);//on supprime le premier plus petit élément de mylist
+        small_elem_1->next_elem = NULL;//l'élément n'est plus dans la liste
 
-            Tree->left = left_node;
-            Tree->right = right_node;
-        }
-        else
-        {
-            small_element_left = smaller_element(copied_list);
-            left_node = create_node(small_element_left->caractere, small_element_left->repetition);
-            current_node = create_node(0, Tree->occurrence + small_element_left->repetition);
-            delete_element(&copied_list, small_element_left);
+        small_elem_2 = smaller_element(mylist);//on trouve le deuxième plus petit élément et on le stocke dans small_elem_2
+        mylist=delete_smaller(mylist,small_elem_2);//on supprime le deuxième plus petit élément de mylist
+        small_elem_2->next_elem = NULL;//l'élément n'est plus dans la liste
 
-            current_node->left = left_node;
-            current_node->right = Tree;
-            Tree = current_node;
-        }
+        new_node=create_elem(NULL,(small_elem_1->occurrence)+(small_elem_2->occurrence));
+        new_node->left=small_elem_1;
+        new_node->right=small_elem_2;
+
+        new_node->next_elem = mylist;//on rajoute le nouveau noeud en debut de liste
+        mylist = new_node;
     }
-    print_list(copied_list);
-    return Tree;
-
+    return mylist;
 }
 
-void print_tree(Node2* tree)
+void print_tree(Node* tree)
 {
     if (tree != NULL)
     {
@@ -120,7 +100,7 @@ void print_tree(Node2* tree)
     }
 }
 
-int nb_element_tree_right(Node2* Tree)
+int nb_element_tree_right(Node* Tree)
 {
     if (Tree == NULL)
     {
