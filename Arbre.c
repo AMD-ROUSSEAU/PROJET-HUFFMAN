@@ -4,17 +4,7 @@
 #include "Arbre.h"
 #include "Liste.h"
 
-//Fonction qui crée un noeud
-Node* create_elem(char car,int occ)
-{
-    Node* new_node=(Node*)malloc(sizeof(Node));
-    new_node->caractere = (char)car;
-    new_node->occurrence=occ;
-    new_node->next_elem=NULL;
-    new_node->left=NULL;
-    new_node->right=NULL;
-    return new_node;
-}
+
 
 Node* smaller_element(Node* mylist)
 {
@@ -101,14 +91,4 @@ void print_tree(Node* tree)
     }
 }
 
-int nb_element_tree_right(Node* Tree)
-{
-    if (Tree == NULL)
-    {
-        return 0;
-    }
-    else
-    {
-        return 1 + nb_element_tree_right(Tree->right);
-    }
-}
+
