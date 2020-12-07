@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "Arbre.h"
+#include "Liste.h"
 
 
 //Fonction qui crée un noeud
