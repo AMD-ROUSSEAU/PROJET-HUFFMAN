@@ -1,6 +1,13 @@
 #ifndef FONCTION_H_INCLUDED
 #define FONCTION_H_INCLUDED
 
+#include "Liste.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+
 //Définition de la structure Node
 typedef struct Node{
     char caractere;
