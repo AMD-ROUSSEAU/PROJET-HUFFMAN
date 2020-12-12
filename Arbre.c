@@ -5,46 +5,55 @@
 #include "Liste.h"
 
 
-
+/**
+ * \brief Function to search for the smallest element in a Node* List
+ * \ param mylist a node list containing each caractere and its occurrence.
+ * \ return the address of the smallest element of mylist.
+ */
 Node* smaller_element(Node* mylist)
 {
     Node* smaller = mylist;
-    while (mylist->next != NULL)
+    while (mylist->next_elem != NULL)
     {
-        if (mylist->next->repetition <= smaller->repetition)
+        if (mylist->next_elem->occurrence <= smaller->occurrence)
         {
-            smaller = mylist->next;
-            mylist = mylist->next;
+            smaller = mylist->next_elem;
+            mylist = mylist->next_elem;
         }
         else
         {
-            mylist = mylist->next;
+            mylist = mylist->next_elem;
         }
     }
 
     return smaller;
 }
 
+/**
+ * \brief Function to erase an element frome the list
+ * \param mylist a node list containing each caractere and its occurrence and smaller the element that will be erased.
+ * \ return mylist without smaller in it.
+ */
 //Fonction qui supprime l'élément smaller de la liste et qui retourne la nouvelle liste
 Node* delete_smaller(Node* list, Node* smaller){
     Node* mylist=list;
     Node* first_elem=mylist;
-    Node* previous = NULL; //Noeud précédent
+    Node* previous = NULL; //Noeud precedent
 
     //printf("Entree dans delete_smaller\n");
     while(mylist != NULL){
         if (mylist==smaller){
-            if(previous==NULL)//Cas où smaller est le premier élément de la liste
+            if(previous==NULL)//Cas où smaller est le premier element de la liste
             {
                 return mylist->next_elem;
             }
-            else // smaller n'est pas le premier élément
+            else // smaller n'est pas le premier element
             {
-                if((mylist->next_elem)==NULL){//smaller est le dernier élément de la liste
+                if((mylist->next_elem)==NULL){//smaller est le dernier element de la liste
                     previous->next_elem = NULL;
                     return first_elem;
                 }
-                else //smaller n'est ni le premier ni le dernier élément de la liste
+                else //smaller n'est ni le premier ni le dernier element de la liste
                 {
                     (previous->next_elem) = (smaller->next_elem);
                     return first_elem;
@@ -56,6 +65,11 @@ Node* delete_smaller(Node* list, Node* smaller){
     }
 }
 
+/**
+ * \brief Function to create a Huffman tree from a node list
+ * \param mylist mylist a node list containing each caractere and its occurrence.
+ * \ return mylist with the new node created in it.
+ */
 Node* create_tree_huffman(Node* list_node){
     Node* mylist=list_node;
     Node* small_elem_1;
@@ -63,13 +77,13 @@ Node* create_tree_huffman(Node* list_node){
     Node* new_node;
 
     while(mylist->next_elem != NULL){
-        small_elem_1 = smaller_element(mylist);//on trouve le premier plus petit élément et on le stocke dans small_elem_1
-        mylist=delete_smaller(mylist,small_elem_1);//on supprime le premier plus petit élément de mylist
-        small_elem_1->next_elem = NULL;//l'élément n'est plus dans la liste
+        small_elem_1 = smaller_element(mylist);//on trouve le premier plus petit element et on le stocke dans small_elem_1
+        mylist=delete_smaller(mylist,small_elem_1);//on supprime le premier plus petit element de mylist
+        small_elem_1->next_elem = NULL;//l'element n'est plus dans la liste
 
-        small_elem_2 = smaller_element(mylist);//on trouve le deuxième plus petit élément et on le stocke dans small_elem_2
-        mylist=delete_smaller(mylist,small_elem_2);//on supprime le deuxième plus petit élément de mylist
-        small_elem_2->next_elem = NULL;//l'élément n'est plus dans la liste
+        small_elem_2 = smaller_element(mylist);//on trouve le deuxieme plus petit element et on le stocke dans small_elem_2
+        mylist=delete_smaller(mylist,small_elem_2);//on supprime le deuxieme plus petit element de mylist
+        small_elem_2->next_elem = NULL;//l'element n'est plus dans la liste
 
         new_node=create_elem(NULL,(small_elem_1->occurrence)+(small_elem_2->occurrence));
         new_node->left=small_elem_1;
@@ -81,13 +95,19 @@ Node* create_tree_huffman(Node* list_node){
     return mylist;
 }
 
-void print_tree(Node* tree)
-{
-    if (tree != NULL)
-    {
-        printf("[ %c | %d ] ->", tree->caractere, tree->occurrence);
+/**
+ * \brief Function to print a tree
+ * \param mytree a Huffman tree containing each caractere and its occurrence.
+ * \ return nothing.
+ */
+
+void print_tree(Node* tree){
+    if(tree!=NULL){
+        //printf("Entree dans print_tree\n");
+        printf("[%c]|[%d] ->\n",tree->caractere,tree->occurrence);
         print_tree(tree->left);
         print_tree(tree->right);
+
     }
 }
 
