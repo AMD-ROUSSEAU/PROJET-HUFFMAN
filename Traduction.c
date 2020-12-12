@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
+#include "Traduction.h"
 
 
 int nb_caractere(FILE* fichier)
@@ -40,6 +42,7 @@ int ascii_to_binary(char car)
 //Fonction permettant de traduire un fichier texte en code binaire (8 bits par caractere)
 /*Parametre : un fichier input.txt contenant le texte à traduire et un fichier output.txt
  dans lequel la traduction de input.txt en code binaire sera écrit*/
+
 void translate_binary(char* file_in, char* file_out){
     int car;
     FILE* input=fopen(file_in,"r");//on ouvre input.txt en mode lecture
@@ -61,38 +64,4 @@ void translate_binary(char* file_in, char* file_out){
     fclose(output);//on ferme le fichier output.txt
 }
 
-void Encodage(FILE* Alice)
-{
-    FILE* Output2 = fopen("Output2.txt","w"); // Opening of the file Output 
-    FILE* Dico = fopen("Dico.txt", "r"); // Opening of the file Dico which is the dictionnary containing all the binary numbers correspondind to the caracters
 
-    caracter = fgetc(Alice);
-    caracterD = fgetc(Dico);
-
-    // Until that the the caracter is not at the end of the file do these
-    while( caracter != EOF)
-    {
-        while (caracterD != EOF) 
-        {
-            if(caracter == caracter D) // if the caracter in the file Alice corresponds to the caracter present in the dictionnary
-            {
-                while (caracterD != '\n') // until we go to the next line to see the next caracter
-                {
-                    for(i=0; i<4; i++)
-                    {
-                        fgetc(Dico); 
-                        printf("%d",caracterD);
-                    }
-                    
-                }
-            }
-                
-            else
-            {
-                fgetc("\n",Dico);
-            }
- 
-       }
-   
-    }
-}
