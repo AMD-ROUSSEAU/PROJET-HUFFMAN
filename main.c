@@ -1,34 +1,73 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "FONCTION.h"
+#include "Liste.h"
+#include "Arbre.h"
+#include "Traduction.h"
+#include "Compression.h"
 
 int main()
 {
+    int choice=0;
+    int file=0;
+    int nb_car;
+    Node* mylist;
+    Node* mytree;
+    code_car* dictionary;
 
-   translate_binary();
+    FILE* fichier = fopen("Alice.txt", "r");
+    FILE* fichier2 = fopen("Dico.txt", "w");
+    FILE* fichier3 = fopen("Output2.txt", "w");
 
-    FILE* fichier = fopen("Alice.txt","r");
-    FILE* fichier2 = fopen("Output.txt","r");
 
-    int x = nb_caractere(fichier);
-    int y = nb_caractere(fichier2);
 
-    printf("Le nombre de caractère dans Alice.txt est %d\n",x);
-    printf("Le nombre de caractère dans Output.txt est %d\n",y);
-fclose(fichier);
-fclose(fichier2);
+    printf("WELCOME TO THE HUFFMAN PROGRAM\n");
+    printf("MENU: \n");
 
-    Element* mylist=NULL;
+    printf("1 : Compression a file\n2: Number of character in a file\n3: Display new dictionary\n ");
+    printf("\nPlease select a choice : ");
+    scanf("%d",&choice);
 
-    mylist = Occurence();
+    printf("\n*************************************\n");
+    if( choice<=3 && choice >=1)
+    {
+        printf("Your choice was registered by the program\n\n");
 
-     print_list(mylist);
-    printf("\n\nIl y a %d lettres differentes \n",nb_element_list(mylist));
+        switch(choice)
+        {
+        case 1:
+            printf(" LOOK TO SABRINA  \n");
 
-Node2* HUFFMAN= NULL;
-HUFFMAN = tree_huffman(mylist);
-print_tree(HUFFMAN);
+            break;
+        case 2:
+            printf("Please select a file : \n1 : Alice\n2: Amandine\n3: Matusa\n4: Sabrina\n");
+            printf(" Your choice : ");
+            scanf("%d",&file);
 
-Storage_Dictionary(HUFFMAN);
+            switch(file)
+            {
+            case 1:
+                nb_car = nb_caractere(fichier);
+                printf("\n\nLe fichier contient %d caracteres.\n", nb_car);
+                printf("\n\n\nTHANKS TO USE HUFFMAN PROGRAMM !!!\n\n    SEE YOU LATER\n\n");
+                break;
+            default :
+                printf("The choice entered is not offerd ... TRY AGAIN");
+                break;
+            }
+            break;
+        case 3:
+            mylist = create_list_char("Alice.txt");
+            /*Tree creation*/
+            mytree = create_tree_huffman(mylist);
+            printf("\n Your new dictionary is below : \n");
+            Storage_Dictionary(mytree,"Dico.txt");
+            break;
+        default:
+            printf("The choice entered is not offerd ... TRY AGAIN");
+            break;
+
+        }
+    }
     return 0;
 }
+
