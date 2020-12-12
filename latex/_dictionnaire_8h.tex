@@ -1,0 +1,63 @@
+\hypertarget{_dictionnaire_8h}{}\doxysection{B\+U\+I\+L\+D\+\_\+\+D\+I\+C\+O/\+Dictionnaire.h File Reference}
+\label{_dictionnaire_8h}\index{BUILD\_DICO/Dictionnaire.h@{BUILD\_DICO/Dictionnaire.h}}
+
+
+Header of the library allowing the management of Dictionnaire.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Arbre.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_dictionnaire_8h_a3f127ec3cf48a5a567b8f545b68b4f6f}{storage\+\_\+letter}} (F\+I\+LE $\ast$dico, \mbox{\hyperlink{struct_node}{Node}} $\ast$mytree, char $\ast$path)
+\begin{DoxyCompactList}\small\item\em Function to write a caractere and its code in a text file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_dictionnaire_8h_a9aed0e9c20511d14d85c91e5df1e500d}{Storage\+\_\+\+Dictionary}} (\mbox{\hyperlink{struct_node}{Node}} $\ast$mytree, char $\ast$Dico\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Function to call for function storage\+\_\+letter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header of the library allowing the management of Dictionnaire. 
+
+\begin{DoxyAuthor}{Author}
+Sabrina M\+O\+H\+A\+M\+M\+E\+DI \href{mailto:sabrina.mohammedi@efrei.net}{\texttt{ sabrina.\+mohammedi@efrei.\+net}} 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+December 2020 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{_dictionnaire_8h_a9aed0e9c20511d14d85c91e5df1e500d}\label{_dictionnaire_8h_a9aed0e9c20511d14d85c91e5df1e500d}} 
+\index{Dictionnaire.h@{Dictionnaire.h}!Storage\_Dictionary@{Storage\_Dictionary}}
+\index{Storage\_Dictionary@{Storage\_Dictionary}!Dictionnaire.h@{Dictionnaire.h}}
+\doxysubsubsection{\texorpdfstring{Storage\_Dictionary()}{Storage\_Dictionary()}}
+{\footnotesize\ttfamily void Storage\+\_\+\+Dictionary (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_node}{Node}} $\ast$}]{mytree,  }\item[{char $\ast$}]{Dico\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Function to call for function storage\+\_\+letter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mytree} & a Huffman tree, Dico\+\_\+name the text file in which we write. \textbackslash{} return nothing. \\
+\hline
+\end{DoxyParams}
+O\+P\+E\+N\+I\+NG D\+I\+CO F\+I\+LE\mbox{\Hypertarget{_dictionnaire_8h_a3f127ec3cf48a5a567b8f545b68b4f6f}\label{_dictionnaire_8h_a3f127ec3cf48a5a567b8f545b68b4f6f}} 
+\index{Dictionnaire.h@{Dictionnaire.h}!storage\_letter@{storage\_letter}}
+\index{storage\_letter@{storage\_letter}!Dictionnaire.h@{Dictionnaire.h}}
+\doxysubsubsection{\texorpdfstring{storage\_letter()}{storage\_letter()}}
+{\footnotesize\ttfamily void storage\+\_\+letter (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{dico,  }\item[{\mbox{\hyperlink{struct_node}{Node}} $\ast$}]{mytree,  }\item[{char $\ast$}]{path }\end{DoxyParamCaption})}
+
+
+
+Function to write a caractere and its code in a text file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dico} & the text file in which we write, mytree a Huffman tree, path the code of the caractere. \textbackslash{} return nothing. \\
+\hline
+\end{DoxyParams}
